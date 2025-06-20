@@ -1,0 +1,8 @@
+./frontend/node_modules/.cache
+./backend/models
+./backend/data
+./backend/venv
+*.DS_Store
+*.pyc
+*.pth
+*.log
