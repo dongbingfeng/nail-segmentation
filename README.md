@@ -85,7 +85,7 @@ graph TD
 ### Backend Setup
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/your-username/nail-segmentation.git
+    git clone https://github.com/dongbingfeng/nail-segmentation.git
     cd nail-segmentation
     ```
 2.  **Set up Python virtual environment:**
