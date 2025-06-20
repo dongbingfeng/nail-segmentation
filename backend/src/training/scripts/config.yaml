@@ -1,0 +1,95 @@
+# Nail Segmentation Training Configuration
+# Optimized for small dataset (100 samples) with extensive augmentation
+
+# Model Configuration
+model:
+  type: "attention_unet"
+  input_channels: 3
+  output_channels: 1
+  base_channels: 64
+  depth: 4
+  attention: true
+  dropout: 0.2
+  batch_norm: true
+
+# Training Configuration
+training:
+  batch_size: 1
+  learning_rate: 0.0001
+  epochs: 1
+  validation_split: 0.5
+  early_stopping_patience: 15
+  lr_scheduler: "cosine"
+  weight_decay: 0.00001
+  gradient_clip_val: 1.0
+
+# Data Configuration
+data:
+  image_size: [1236, 1032]
+  augmentation_strength: 0.5
+  normalize_images: true
+
+# Loss Configuration
+loss:
+  loss_type: "combined"
+  bce_weight: 0.5
+  dice_weight: 0.5
+  focal_alpha: 1.0
+  focal_gamma: 2.0
+
+# Augmentation Configuration
+# Optimized for nail segmentation with extensive augmentation for small dataset
+augmentation:
+  rotation: 15
+  horizontal_flip: 0.5
+  vertical_flip: 0.2
+  brightness: 0.2
+  contrast: 0.2
+  saturation: 0.2
+  elastic_transform: true
+  gaussian_noise: 0.1
+  blur: 0.1
+  motion_blur: 0.1
+  gaussian_blur: 0.1
+  shift_scale_rotate:
+    shift_limit: 0.1
+    scale_limit: 0.1
+    rotate_limit: 15
+  random_crop: 0.3
+  cutout:
+    num_holes: 3
+    max_h_size: 32
+    max_w_size: 32
+
+# Hardware Configuration
+hardware:
+  device: "cpu"
+  num_workers: 4
+  pin_memory: true
+  mixed_precision: true
+
+# Logging Configuration
+logging:
+  log_interval: 10
+  save_interval: 5
+  tensorboard: true
+  wandb: false
+
+# Paths Configuration
+paths:
+  data_dir: "../../data/training_data/"
+  output_dir: "../../models/unet/output/"
+  checkpoint_dir: "../../models/unet/checkpoints/"
+
+# Optimization for Small Dataset
+small_dataset_optimizations:
+  # Use curriculum learning
+  curriculum_learning: true
+  # Start with easier samples
+  easy_samples_ratio: 0.3
+  # Increase augmentation over time
+  progressive_augmentation: true
+  # Use label smoothing
+  label_smoothing: 0.1
+  # Use mixup augmentation
+  mixup_alpha: 0.2 
